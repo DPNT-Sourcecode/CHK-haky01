@@ -37,9 +37,10 @@ def get_price_with_offer(item_count, offer_count, offer_price, base_price):
 
 
 def get_items_to_pay_for(item_count, offer_count, offer_count_required, free_items=1):
-    item_count_to_pay = item_count - offer_items / offer_count * free_items
+    item_count_to_pay = item_count - (offer_count_required / offer_count) * free_items
 
     return item_count_to_pay if item_count_to_pay >= 0 else 0
+
 
 
 
