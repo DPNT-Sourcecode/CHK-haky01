@@ -12,15 +12,14 @@ def checkout(skus):
 
     for c in skus:
         if c == "A":
-            pass
+            sku_count["A"] += 1
         elif c == "B":
-            pass
+            sku_count["B"] += 1
         elif c == "C":
-            pass
+            sku_count["C"] += 1
         elif c == "D":
-            pass
+            sku_count["D"] += 1
         else:
-            pass
+            return -1
 
-    raise NotImplementedError()
 
