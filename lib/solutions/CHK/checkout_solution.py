@@ -29,7 +29,7 @@ def checkout(skus):
     D_total = 15 * sku_count["D"]
     E_total = 40 * sku_count["E"]
 
-    F_to_pay = get_items_to_pay_for(sku_count["F"], sku_count["F"], 2)
+    F_to_pay = get_same_item_free(sku_count["F"], 2)
     F_total = F_to_pay * 10
 
     return A_total + B_total + C_total + D_total + E_total + F_total
@@ -46,3 +46,8 @@ def get_items_to_pay_for(item_count, offer_count, offer_count_required, free_ite
     item_count_to_pay = item_count - (offer_count // offer_count_required) * free_items
 
     return item_count_to_pay if item_count_to_pay >= 0 else 0
+
+
+def get_same_item_free(item_count, offer_count_required, free_items=1):
+    item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
+
