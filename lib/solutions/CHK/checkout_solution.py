@@ -1,6 +1,16 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+    rules = [
+        {
+            "sku": "A",
+            "price": 50,
+            "multi_buy_discount": [(3, 130), (5, 200)],
+            "multi_buy_free": (2, 1),
+            "multi_buy_free_other": (2, 1, "E"),
+        }
+    ]
+
     sku_count = {
         "A": 0,
         "B": 0,
@@ -52,5 +62,6 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
+
 
 
