@@ -1,7 +1,8 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 
-# Note no validation of discount orders yet
+# Note: no validation of discount orders yet. Put bigger quantity first
+# Note: free other is written backwards (i.e. relation is encoded in SKU that gets a free item)
 rules = {
     "A": {
         "price": 50,
@@ -255,3 +256,4 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
+
