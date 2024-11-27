@@ -46,7 +46,3 @@ def get_items_to_pay_for(item_count, offer_count, offer_count_required, free_ite
     item_count_to_pay = item_count - (offer_count // offer_count_required) * free_items
 
     return item_count_to_pay if item_count_to_pay >= 0 else 0
-
-
-
-
