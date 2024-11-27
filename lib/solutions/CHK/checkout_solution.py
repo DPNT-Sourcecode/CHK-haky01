@@ -1,14 +1,19 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+    # Note no validation of discount orders yet
     rules = {
         "A": {
             "price": 50,
-            "multi_buy_discount": [(3, 130), (5, 200)],
+            "multi_buy_discount": [(5, 200), (3, 130)],
             "multi_buy_free": (2, 1),
             "multi_buy_free_other": (2, 1, "E"),
             "count": 0,
+        },
+        "B": {
+
         }
+
     }
 
     for c in skus:
@@ -16,6 +21,15 @@ def checkout(skus):
             rules[c]["count"] += 1
         else:
             return -1
+
+
+def get_total_for_sku(sku):
+
+
+
+def get_multi_buy_discount_total(sku):
+    for discount in sku["multi_buy_discount"]:
+
 
 
 def get_price_with_offer(item_count, offer_count, offer_price):
@@ -35,3 +49,4 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
+
