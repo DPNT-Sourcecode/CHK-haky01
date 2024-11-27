@@ -50,9 +50,11 @@ def get_multi_buy_free(sku):
 
 def get_multi_buy_free_other(sku):
     count = sku["count"]
+    min_count = sku["multi_buy_free_other"][0]
+    free_count = sku["multi_buy_free_other"][1]
     item_count = rules[sku["multi_buy_free_other"][2]]["count"]
-    min_count =
-    free_count =
+
+    return count - (item_count // min_count) * free_count
 
 
 
@@ -73,6 +75,7 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
+
 
 
 
