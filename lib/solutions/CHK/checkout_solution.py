@@ -26,7 +26,3 @@ def get_price_with_offer(item_count, offer_count, offer_price, base_price):
     quot, rem = divmod(item_count, offer_count)
 
     return quot * offer_price + rem * base_price
-
-
-
-
