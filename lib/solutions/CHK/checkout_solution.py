@@ -20,7 +20,9 @@ def checkout(skus):
     else:
         A_total = get_price_with_offer(sku_count["A"], 5, 200, 50)
 
-    B_total = get_price_with_offer(sku_count["B"] - sku_count["E"] / 2, 2, 45, 30)
+
+
+    B_total = get_price_with_offer(sku_count["B"], 2, 45, 30)
 
     C_total = 20 * sku_count["C"]
     D_total = 15 * sku_count["D"]
@@ -33,6 +35,9 @@ def get_price_with_offer(item_count, offer_count, offer_price, base_price):
     quot, rem = divmod(item_count, offer_count)
 
     return quot * offer_price + rem * base_price
+
+def get_free_item(item_count, offer_count, )
+
 
 
 
