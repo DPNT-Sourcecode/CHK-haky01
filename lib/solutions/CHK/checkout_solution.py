@@ -28,7 +28,16 @@ def get_total_for_sku(sku):
 
 
 def get_multi_buy_discount_total(sku):
+    total = 0
+    items = sku["count"]
+
     for discount in sku["multi_buy_discount"]:
+        quotient, remainder = divmod(items, discount[0])
+        total += quotient * discount[1]
+        items = remainder
+
+    return total, items
+
 
 
 
@@ -49,4 +58,5 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
+
 
