@@ -1,15 +1,15 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    rules = [
-        {
-            "sku": "A",
+    rules = {
+        "A": {
             "price": 50,
             "multi_buy_discount": [(3, 130), (5, 200)],
             "multi_buy_free": (2, 1),
             "multi_buy_free_other": (2, 1, "E"),
+            "count": 0,
         }
-    ]
+    }
 
     sku_count = {
         "A": 0,
@@ -25,24 +25,6 @@ def checkout(skus):
             sku_count[c] += 1
         else:
             return -1
-
-    A_offer_total, rem = get_price_with_offer(sku_count["A"], 5, 200)
-    A_total = A_offer_total
-    A_offer_total, rem = get_price_with_offer(rem, 3, 130)
-    A_total += A_offer_total + rem * 50
-
-    B_to_pay = get_items_to_pay_for(sku_count["B"], sku_count["E"], 2)
-    B_offer_total, rem = get_price_with_offer(B_to_pay, 2, 45)
-    B_total = B_offer_total + rem * 30
-
-    C_total = 20 * sku_count["C"]
-    D_total = 15 * sku_count["D"]
-    E_total = 40 * sku_count["E"]
-
-    F_to_pay = get_same_item_free(sku_count["F"], 2)
-    F_total = F_to_pay * 10
-
-    return A_total + B_total + C_total + D_total + E_total + F_total
 
 
 def get_price_with_offer(item_count, offer_count, offer_price):
@@ -62,3 +44,4 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
+
