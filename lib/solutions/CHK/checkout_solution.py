@@ -51,3 +51,6 @@ def get_items_to_pay_for(item_count, offer_count, offer_count_required, free_ite
 def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
+    return item_count_to_pay
+
+
