@@ -11,18 +11,9 @@ def checkout(skus):
         }
     }
 
-    sku_count = {
-        "A": 0,
-        "B": 0,
-        "C": 0,
-        "D": 0,
-        "E": 0,
-        "F": 0,
-    }
-
     for c in skus:
-        if c in sku_count:
-            sku_count[c] += 1
+        if c in rules:
+            rules[c]["count"] += 1
         else:
             return -1
 
@@ -44,4 +35,3 @@ def get_same_item_free(item_count, offer_count_required, free_items=1):
     item_count_to_pay = item_count - item_count // (offer_count_required + free_items)
 
     return item_count_to_pay
-
