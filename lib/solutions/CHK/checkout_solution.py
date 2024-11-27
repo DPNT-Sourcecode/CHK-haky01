@@ -11,15 +11,20 @@ def checkout(skus):
     }
 
     for c in skus:
-        if c == "A":
-            sku_count["A"] += 1
-        elif c == "B":
-            sku_count["B"] += 1
-        elif c == "C":
-            sku_count["C"] += 1
-        elif c == "D":
-            sku_count["D"] += 1
+        if c in sku_count:
+            sku_count[c] += 1
         else:
             return -1
+
+    quot_A, rem_A = divmod(sku_count["A"], 3)
+    quot_B, rem_B = divmod(sku_count["B"], 2)
+
+    A_total = quot_A * 130 + rem_A * 50
+    B_total = quot_B * 45 + rem_B * 30
+    C_total = 20 * sku_count["C"]
+    D_total = 15 * sku_count["D"]
+
+    return A_total + B_total + C_total + D_total
+
 
 
