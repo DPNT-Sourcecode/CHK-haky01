@@ -230,3 +230,9 @@ def calc_multi_buy_free_other(sku_rule, sku_counts, k):
 
     return new_count if new_count >= 0 else 0
 
+
+def get_group_discount(sku_rule, sku_counts, keys):
+    min_count = sku_rule["group_discount"][0]
+    discount_price = sku_rule["group_discount"][1]
+
+
