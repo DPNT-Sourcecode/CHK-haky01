@@ -9,182 +9,156 @@ rules = {
         "multi_buy_discount": [(5, 200), (3, 130)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "B": {
         "price": 30,
         "multi_buy_discount": [(2, 45)],
         "multi_buy_free": None,
         "multi_buy_free_other": (2, 1, "E"),
-        "count": 0,
     },
     "C": {
         "price": 20,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "D": {
         "price": 15,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "E": {
         "price": 40,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "F": {
         "price": 10,
         "multi_buy_discount": [],
         "multi_buy_free": (2, 1),
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "G": {
         "price": 20,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "H": {
         "price": 10,
         "multi_buy_discount": [(10, 80), (5, 45)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "I": {
         "price": 35,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "J": {
         "price": 60,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "K": {
         "price": 80,
         "multi_buy_discount": [(2, 150)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "L": {
         "price": 90,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "M": {
         "price": 15,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": (3, 1, "M"),
-        "count": 0,
     },
     "N": {
         "price": 40,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "O": {
         "price": 10,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "P": {
         "price": 50,
         "multi_buy_discount": [(5, 200)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "Q": {
         "price": 30,
         "multi_buy_discount": [(3, 80)],
         "multi_buy_free": None,
         "multi_buy_free_other": (3, 1, "R"),
-        "count": 0,
     },
     "R": {
         "price": 50,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "S": {
         "price": 30,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "T": {
         "price": 20,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "U": {
         "price": 40,
         "multi_buy_discount": [],
         "multi_buy_free": (3, 1),
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "V": {
         "price": 50,
         "multi_buy_discount": [(3, 130), (2, 90)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "W": {
         "price": 20,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "X": {
         "price": 90,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "Y": {
         "price": 10,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
     "Z": {
         "price": 50,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
-        "count": 0,
     },
 }
 
@@ -205,18 +179,18 @@ def checkout(skus):
             return -1
 
     total = 0
-    for k in rules.keys():
+    for k in sku_counts.keys():
         total += get_total_for_sku(k, rules, sku_counts)
 
     return total
 
 
 def get_total_for_sku(k, rules, sku_counts):
-    count = sku_counts[k]
+    count = sku_counts.get(k, 0)
     sku_rule = rules[k]
 
     if sku_rule["multi_buy_free"]:
-        count = calc_multi_buy_free(sku, count)
+        count = calc_multi_buy_free(sku_rule, count)
 
     if sku_rule["multi_buy_free_other"]:
         count = calc_multi_buy_free_other(sku_rule, sku_counts, k)
@@ -255,6 +229,7 @@ def calc_multi_buy_free_other(sku_rule, sku_counts, k):
     new_count = count - (item_count // min_count) * free_count
 
     return new_count if new_count >= 0 else 0
+
 
 
 
