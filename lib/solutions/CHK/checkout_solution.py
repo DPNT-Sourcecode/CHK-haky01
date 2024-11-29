@@ -261,11 +261,14 @@ def get_group_discount(sku_counts):
         if sku_counts[p[0]] < 0:
             remainder = abs(sku_counts[p[0]])
             sku_counts[p[0]] = 0
+        else:
+            remainder = 0
 
         if remainder == 0:
             break
 
     return quotient * discount_price
+
 
 
 
