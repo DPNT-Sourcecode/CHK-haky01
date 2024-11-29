@@ -236,10 +236,10 @@ def get_group_discount(sku_rule, sku_counts, keys):
     discount_price = sku_rule["group_discount"][1]
 
     count = 0
+    prices = []
     for k in keys:
         count += sku_counts.get(k, 0)
 
     quotient, remainder = divmod(count, min_count)
 
-
-
+    total = quotient * discount_price
