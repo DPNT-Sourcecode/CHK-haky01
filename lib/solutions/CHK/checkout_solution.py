@@ -257,7 +257,7 @@ def get_group_discount(sku_counts):
     quotient, remainder = divmod(count, min_count)
 
     for p in prices:
-        remainder -= sku_counts[p[0]]
+        remainder -= sku_counts.get(p[0], 0)
 
         sku_counts[p[0]] -= remainder
 
@@ -268,6 +268,7 @@ def get_group_discount(sku_counts):
             break
 
     return quotient * discount_price
+
 
 
 
