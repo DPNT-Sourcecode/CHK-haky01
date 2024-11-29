@@ -211,7 +211,8 @@ def checkout(skus):
     return total
 
 
-def get_total_for_sku(sku):
+def get_total_for_sku(sku, sku_count):
+    count = sku_count
 
     if sku["multi_buy_free"]:
         calc_multi_buy_free(sku)
@@ -224,9 +225,9 @@ def get_total_for_sku(sku):
     return total + count * sku["price"]
 
 
-def get_multi_buy_discount_total(sku):
+def get_multi_buy_discount_total(sku, sku_count):
     total = 0
-    count = sku["count"]
+    count = sku_count
 
     for discount in sku.get("multi_buy_discount", []):
         quotient, remainder = divmod(count, discount[0])
@@ -253,4 +254,5 @@ def calc_multi_buy_free_other(sku):
     new_count = count - (item_count // min_count) * free_count
 
     sku["count"] = new_count if new_count >= 0 else 0
+
 
