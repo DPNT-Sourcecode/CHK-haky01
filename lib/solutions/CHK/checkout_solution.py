@@ -221,14 +221,15 @@ def calc_multi_buy_free(sku_rule, sku_count):
 
 
 def calc_multi_buy_free_other(sku_rule, sku_counts, k):
-    count = sku_counts[k]
+    count = sku_counts.get(k, 0)
     min_count = sku_rule["multi_buy_free_other"][0]
     free_count = sku_rule["multi_buy_free_other"][1]
-    item_count = sku_counts[sku_rule["multi_buy_free_other"][2]]
+    item_count = sku_counts.get(sku_rule["multi_buy_free_other"][2], 0)
 
     new_count = count - (item_count // min_count) * free_count
 
     return new_count if new_count >= 0 else 0
+
 
 
 
