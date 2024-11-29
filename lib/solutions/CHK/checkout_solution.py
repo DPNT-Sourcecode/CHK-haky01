@@ -179,6 +179,9 @@ def checkout(skus):
             return -1
 
     total = 0
+
+    total += get_group_discount(rule, sku_counts)
+
     for k in sku_counts.keys():
         total += get_total_for_sku(k, rules, sku_counts)
 
@@ -234,6 +237,7 @@ def calc_multi_buy_free_other(sku_rule, sku_counts, k):
 def get_group_discount(sku_rule, sku_counts, keys):
     min_count = sku_rule["group_discount"][0]
     discount_price = sku_rule["group_discount"][1]
+    keys = sku_rule["group_discount"][3]
 
     count = 0
     prices = []
@@ -257,6 +261,7 @@ def get_group_discount(sku_rule, sku_counts, keys):
             break
 
     return quotient * discount_price
+
 
 
 
