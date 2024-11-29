@@ -174,14 +174,12 @@ def checkout(skus):
 
     sku_counts = {}
 
+    for c in rules.keys():
+        sku_counts[c] = 0
+
     for c in skus:
         if c in rules:
-            if sku_counts.get(c):
-                sku_counts[c] += 1
-            else:
-                sku_counts[c] = 1
-
-            # rules[c]["count"] += 1
+            sku_counts[c] += 1
         else:
             return -1
 
@@ -257,9 +255,11 @@ def get_group_discount(sku_counts):
     quotient, remainder = divmod(count, min_count)
 
     for p in prices:
-        remainder -= sku_counts.get(p[0], 0)
+        remainder -= sku_counts[p[0]]
 
         sku_counts[p[0]] -= remainder
+
+        print(p[0], sku_counts[p[0]])
 
         if sku_counts[p[0]] < 0:
             sku_counts[p[0]] = 0
@@ -268,6 +268,7 @@ def get_group_discount(sku_counts):
             break
 
     return quotient * discount_price
+
 
 
 
