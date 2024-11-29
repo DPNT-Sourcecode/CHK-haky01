@@ -246,4 +246,3 @@ def calc_multi_buy_free_other(sku):
     new_count = count - (item_count // min_count) * free_count
 
     sku["count"] = new_count if new_count >= 0 else 0
-
