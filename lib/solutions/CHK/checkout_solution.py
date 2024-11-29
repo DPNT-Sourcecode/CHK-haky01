@@ -3,6 +3,13 @@
 
 # Note: no validation of discount orders yet. Put bigger quantity first
 # Note: free other is written backwards (i.e. relation is encoded in SKU that gets a free item)
+group_rule = {
+    "min_count": 3,
+    "discount_price": 45,
+    "keys": ["S", "T", "X", "Y", "Z"],
+}
+
+
 rules = {
     "A": {
         "price": 50,
@@ -180,7 +187,7 @@ def checkout(skus):
 
     total = 0
 
-    total += get_group_discount(rule, sku_counts)
+    total += get_group_discount(sku_counts)
 
     for k in sku_counts.keys():
         total += get_total_for_sku(k, rules, sku_counts)
@@ -234,10 +241,10 @@ def calc_multi_buy_free_other(sku_rule, sku_counts, k):
     return new_count if new_count >= 0 else 0
 
 
-def get_group_discount(sku_rule, sku_counts, keys):
-    min_count = sku_rule["group_discount"][0]
-    discount_price = sku_rule["group_discount"][1]
-    keys = sku_rule["group_discount"][3]
+def get_group_discount(sku_counts):
+    min_count = group_rule["min_count"]
+    discount_price = group_rule["discount_price"]
+    keys = group_rule["keys"]
 
     count = 0
     prices = []
@@ -261,6 +268,7 @@ def get_group_discount(sku_rule, sku_counts, keys):
             break
 
     return quotient * discount_price
+
 
 
 
