@@ -241,9 +241,13 @@ def get_group_discount(sku_rule, sku_counts, keys):
         count += sku_counts.get(k, 0)
         prices.append((k, rules[k]["price"]))
 
-    prices.sort(key=lambda x: x[1])
+    prices.sort(key=lambda x: x[1], reverse=True)
 
     quotient, remainder = divmod(count, min_count)
 
+    for p in prices:
+        remainder -= p[0]
+
     total = quotient * discount_price
+
 
