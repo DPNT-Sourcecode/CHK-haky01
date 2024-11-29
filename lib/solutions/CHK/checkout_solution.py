@@ -205,8 +205,8 @@ def checkout(skus):
             return -1
 
     total = 0
-    for elem in rules.values():
-        total += get_total_for_sku(elem)
+    for k, v in rules.items():
+        total += get_total_for_sku(v, sku_counts[k])
 
     return total
 
@@ -215,12 +215,12 @@ def get_total_for_sku(sku, sku_count):
     count = sku_count
 
     if sku["multi_buy_free"]:
-        calc_multi_buy_free(sku)
+        count = calc_multi_buy_free(sku, count)
 
     if sku["multi_buy_free_other"]:
-        calc_multi_buy_free_other(sku)
+        count = calc_multi_buy_free_other(sku, count)
 
-    total, count = get_multi_buy_discount_total(sku)
+    total, count = get_multi_buy_discount_total(sku, count)
 
     return total + count * sku["price"]
 
@@ -237,22 +237,23 @@ def get_multi_buy_discount_total(sku, sku_count):
     return total, count
 
 
-def calc_multi_buy_free(sku):
-    count = sku["count"]
+def calc_multi_buy_free(sku, sku_count):
+    count = sku_count
     min_count = sku["multi_buy_free"][0]
     free_count = sku["multi_buy_free"][1]
 
-    sku["count"] = count - count // (min_count + free_count)
+    return count - count // (min_count + free_count)
 
 
-def calc_multi_buy_free_other(sku):
-    count = sku["count"]
+def calc_multi_buy_free_other(sku, sku_count):
+    count = sku_count
     min_count = sku["multi_buy_free_other"][0]
     free_count = sku["multi_buy_free_other"][1]
     item_count = rules[sku["multi_buy_free_other"][2]]["count"]
 
     new_count = count - (item_count // min_count) * free_count
 
-    sku["count"] = new_count if new_count >= 0 else 0
+    return new_count if new_count >= 0 else 0
+
 
 
