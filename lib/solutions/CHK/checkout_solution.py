@@ -80,13 +80,13 @@ rules = {
         "price": 15,
         "multi_buy_discount": [],
         "multi_buy_free": None,
-        "multi_buy_free_other": (3, 1, "M"),
+        "multi_buy_free_other": None,
     },
     "N": {
         "price": 40,
         "multi_buy_discount": [],
         "multi_buy_free": None,
-        "multi_buy_free_other": None,
+        "multi_buy_free_other": (3, 1, "M"),
     },
     "O": {
         "price": 10,
@@ -229,9 +229,3 @@ def calc_multi_buy_free_other(sku_rule, sku_counts, k):
     new_count = count - (item_count // min_count) * free_count
 
     return new_count if new_count >= 0 else 0
-
-
-
-
-
-
