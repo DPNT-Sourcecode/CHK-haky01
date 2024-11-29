@@ -252,7 +252,9 @@ def get_group_discount(sku_counts):
 
     prices.sort(key=lambda x: x[1], reverse=True)
 
-    quotient, remainder = divmod(count, min_count)
+    quotient, remainder_old = divmod(count, min_count)
+    remainder = quotient * min_count
+
     print(quotient, remainder)
 
     for p in prices:
@@ -268,3 +270,4 @@ def get_group_discount(sku_counts):
             break
 
     return quotient * discount_price
+
