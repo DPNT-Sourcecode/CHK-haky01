@@ -72,7 +72,7 @@ rules = {
         "multi_buy_free_other": None,
     },
     "K": {
-        "price": 80,
+        "price": 70,
         "multi_buy_discount": [(2, 150)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
@@ -120,7 +120,7 @@ rules = {
         "multi_buy_free_other": None,
     },
     "S": {
-        "price": 30,
+        "price": 20,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
@@ -150,19 +150,19 @@ rules = {
         "multi_buy_free_other": None,
     },
     "X": {
-        "price": 90,
+        "price": 17,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
     },
     "Y": {
-        "price": 10,
+        "price": 20,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
     },
     "Z": {
-        "price": 50,
+        "price": 21,
         "multi_buy_discount": [],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
@@ -252,7 +252,7 @@ def get_group_discount(sku_counts):
 
     prices.sort(key=lambda x: x[1], reverse=True)
 
-    quotient, remainder_old = divmod(count, min_count)
+    quotient = count // min_count
     remainder = quotient * min_count
 
     print(quotient, remainder)
@@ -270,4 +270,5 @@ def get_group_discount(sku_counts):
             break
 
     return quotient * discount_price
+
 
