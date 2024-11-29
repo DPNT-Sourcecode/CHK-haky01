@@ -73,7 +73,7 @@ rules = {
     },
     "K": {
         "price": 70,
-        "multi_buy_discount": [(2, 150)],
+        "multi_buy_discount": [(2, 120)],
         "multi_buy_free": None,
         "multi_buy_free_other": None,
     },
@@ -255,8 +255,6 @@ def get_group_discount(sku_counts):
     quotient = count // min_count
     remainder = quotient * min_count
 
-    print(quotient, remainder)
-
     for p in prices:
         sku_counts[p[0]] -= remainder
 
@@ -264,11 +262,10 @@ def get_group_discount(sku_counts):
             remainder = abs(sku_counts[p[0]])
             sku_counts[p[0]] = 0
 
-        print(p[0], sku_counts[p[0]])
-
         if remainder == 0:
             break
 
     return quotient * discount_price
+
 
 
