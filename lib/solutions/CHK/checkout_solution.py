@@ -191,9 +191,16 @@ rules = {
 
 def checkout(skus):
 
+    sku_counts = {}
+
     for c in skus:
         if c in rules:
-            rules[c]["count"] += 1
+            if sku_counts.get(c):
+                sku_counts[c] += 1
+            else:
+                sku_counts[c] = 1
+
+            # rules[c]["count"] += 1
         else:
             return -1
 
@@ -246,3 +253,4 @@ def calc_multi_buy_free_other(sku):
     new_count = count - (item_count // min_count) * free_count
 
     sku["count"] = new_count if new_count >= 0 else 0
+
